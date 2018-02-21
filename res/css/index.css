@@ -1,0 +1,263 @@
+@font-face {
+  font-family: 'Oregon';
+  src: url('../fonts/Oregon.ttf');
+}
+
+@font-face {
+  font-family: 'Cardiff';
+  src: url('../fonts/Cardiff.ttf');
+}
+
+@-webkit-keyframes glitchy {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes glitchy {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-o-keyframes glitchy {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes glitchy {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background-image: url("../img/ensak.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+header {
+  height: auto;
+  min-height: 600px;
+  width: 100%;
+  margin: 0;
+}
+@media screen and (max-width: 699px) and (min-width: 120px) {
+  .shownav {display: none;}
+  .shownav li a{
+    width:100%;
+  }
+   ul.nav.navbar-nav.navbar-left > li > a {
+    display: block !important;
+  }
+}
+@media screen and (max-width: 1500px) and (min-width: 700px) {
+  .shownav {display: block;}
+}
+#logo {
+  transition: transform 1.2s ease-in-out;
+}
+
+#logo:hover {
+  -webkit-transform: rotateZ(360deg);
+  /* Safari */
+  transform: rotateZ(360deg);
+}
+
+.welcome {
+  margin-top: 10px;
+  text-align: center;
+}
+hr {
+  color: #364471 !important;
+}
+
+.welcomeText {
+  float: none !important;
+  margin: 0 auto;
+  margin-top: 100px;
+  border: 3px double #d1e1ff;
+  background-color: #364471;
+  border-radius: 3px;
+  padding-top: 2px;
+  padding-left: 28px !important;
+  text-align: left;
+}
+
+.welcomeText-inverse {
+  background-color: #d1e1ff !important;
+  border: 3px double #364471 !important;
+}
+
+.welcomeText-inverse p {
+  color: #364471 !important;
+}
+
+.welcomeText p {
+  margin: 0;
+  font-weight: bold;
+  color: #d1e1ff;
+  font-size: 24px;
+  font-family: 'Courier New', monospace !important;
+}
+.icon {
+  float:left !important;
+}
+#lll {
+  font-family: 'Courier New', monoscape !important;
+}
+#sqr {
+  font-size: 30px;
+  animation-name: glitchy;
+  animation-duration: 0.7s;
+  animation-iteration-count: infinite;
+}
+
+.navbar {
+  background-color: #364471 !important;
+  border-color: #364471 !important;
+  font-size: 26px;
+  margin-bottom: 0 !important;
+  border-radius: 0 !important;
+  z-index: 10;
+  transition: background-color 0.6s ease;
+}
+
+.navbar a {
+  color: #d1e1ff !important;
+  transition: .8s all ease;
+  font-family: 'Oregon';
+}
+
+.navbar a:hover {
+  color: #364471 !important;
+  background-color: #d1e1ff !important;
+}
+
+.block {
+  width: 100%;
+  min-height: 700px;
+  height: auto;
+  background-repeat: repeat;
+  padding: 30px;
+}
+
+.block1 {
+  background-color: #d1e1ff;
+}
+
+.block2 {
+  background-color: #364471;
+  min-height: 500px !important;
+}
+.sticky {
+  position: fixed !important;
+  top: 0!important;
+  width: 100% !important;
+  background-color: rgba(54,68,113,0.85) !important;
+}
+nav.sticky {
+  background-color: rgba(54,68,113,0.85) !important;
+}
+.sticky+.content {
+  padding-top: 60px !important;
+}
+
+li.active a {
+  color: #364471 !important;
+}
+
+.containerblock {
+  min-height: 600px;
+  height: auto;
+  width: 100%;
+  padding: 5px;
+}
+
+.containerblock>p {
+  color: #364471;
+  font-family: 'Cardiff';
+  font-size: 32px;
+  text-align: justify;
+}
+
+.excep {
+  z-index: -1;
+}
+
+.containerblock>p, .containerblock>img {
+  display: inline;
+}
+
+.thb .thumbnail {
+  position: relative;
+  transition: top 1s, box-shadow 0.6 s;
+  box-shadow: -3px 3px 2px #888888;
+}
+
+.carousel-inner>.item>img {
+  margin: 0 auto;
+}
+
+#galerieP {
+  text-align: center;
+  font-size: 62px;
+  font-family: 'Oregon' !important;
+  border-top-left-radius: 2% !important;
+  border-top-right-radius: 2% !important;
+}
+#loadinggif {
+  text-align:center;
+  padding-top: 10%;
+}
+/*----------------------------------------*/
+.column {
+    float: left;
+    width: 25%;
+    padding: 10px;
+}
+
+.column img {
+    margin-top: 12px;
+    width: 100%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media (max-width: 800px) {
+    .column {
+        width: 50%;
+    }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+    .column {
+        width: 100%;
+   }
+}
