@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="res/js/jquery.min.js"></script>
+    <script src="res/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="res/css/bootstrap.min.css">
+    <title>Show existing schedules</title>
+</head>
+<body>
+    <div class="container1">
+        <table>
+            <thead>
+                <th>Dates</th>
+                <th>8:30 - 10:30</th>
+                <th>10:30 - 12:30</th>
+                <th>14:30 - 16:30</th>
+                <th>16:30 - 18:30</th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Lundi</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Mardi</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Mercredi</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Jeudi</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Vendredi</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </tbody>
+            </table>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <!--<h4 class="modal-title">Modal Header</h4>-->
+                </div>
+                <div class="modal-body">
+                </div>  
+            </div>
+        </div>
+    </div>
+    <script>
+    var dat;
+    $(document).ready(function() {
+        $.getJSON("calc.php",function(data) {
+            fillOutTable(data);
+        })
+    });
+    function fillOutTable(d) {
+        dat = d;
+        var a=0,max=0;
+        var type = '';
+        for(var i=0;i<20;i++){ max = (d[i][0]>max)?d[i][0]:max; }
+        for(var i=0;i<20;i++){
+            var tba = '';
+            a += ((a+1)%5==0)?2:1;
+            var b = document.getElementsByTagName("td")[a];
+            if(d[i][0] == 0){
+                 type="good";
+                 tba+="<p>0 Absents</p>";
+            }
+            else if(d[i][0]>0 && d[i][0]<=Math.floor(max/2)){ 
+                type="med-1";
+            }
+            else if(d[i][0]>Math.floor(max/2) && d[i][0] < max){ 
+                type="med-2"; 
+            }
+            else{  
+                type="bad"; 
+            }
+            if(d[i][0] !== 0) {
+                tba+='<p>'+d[i][0]+' Absents</p><button class="btn btn-info" onclick="showInfo('+i+')">+</button>'
+            }
+            b.className = type;  
+            b.innerHTML = tba;
+        }
+    }
+    function findDate(a) {
+        var days = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi"];
+        var hours = ["8:30-10:30","10:30-12:30","14:30-16:30","16:30-18:30"];
+        var day = days[Math.floor((a-1)/5 + 1)];
+        var hour = hours[a%4].split("-");
+        return  day + " de " + hour[0] + " jusqu'a " + hour[1];
+    }
+    function showInfo(i) {
+        var inf = dat[i];
+        $(".modal-header").html('<button type="button" class="close" data-dismiss="modal">&times;</button>');
+        $(".modal-body").html(" ");
+        var header = '<h4 class="modal-title">Liste d\'absence du: '+findDate(i)+"</h4>";
+        var bod = "<table style='margin:0px' class='table table-bordered table-striped table-hover'><thead><tr><th>Avatar</th><th>Nom complet</th></tr></thead><tbody>"
+        for(var j = 0; j<inf[1].length;j++) {
+            bod+="<tr><td><img src='res/img/avt.png'/></td><td>"+inf[1][j]+"</td></tr>";
+        }
+        bod+="</table>";
+        $(".modal-header").append(header);
+        $(".modal-body").append(bod);
+        $("#myModal").modal("show");
+    }
+    </script>
+    <style>
+        body,html {
+                background-image: url("res/img/rep.jpg");
+                background-repeat: repeat;
+        }
+        table {
+		width:80%;
+		height:500px;
+		margin-left: 10%;
+		margin-top: 50px;
+		margin-bottom: 20px;
+		color: black;
+		border: 2px double black;
+		border-radius: 5px;
+		
+	}
+	td,th {
+		border: 2px solid black;
+		border-radius: 3px;
+		padding: 5px;
+		background-color: rgba(255,255,255,.3);
+	}
+    .good {
+        background-color: rgba(0,255,0,.6);
+    }
+    .med-1 {
+        background-color: rgba(117, 240, 47, 0.6);
+    }
+    .med-2 {
+        background-color: rgba(238, 253, 53, 0.6);
+    }
+    .bad {
+        background-color: rgba(255, 0, 0,.6)
+    }
+    td button {
+        float:right;
+    }
+    </style>
+</body>
+</html>

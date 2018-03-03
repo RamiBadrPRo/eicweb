@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="res/js/jquery.min.js"></script>
+    <script src="res/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="res/css/bootstrap.min.css">
+    <title>Create New Group8</title>
+</head>
+<body>
+<div class="container">
+    <div class="form-group">
+        <label for="Name">Group name</label>
+        <input type="text" class="form-control" id="name">
+    </div>
+    <div class="form-group">
+            <label for="descr">Description:</label>
+            <textarea class="form-control" rows="5" id="descr"></textarea>
+    </div>
+    <button type="submit" class="btn btn-default" onclick="createNew();">Ajouter</button>
+</div>
+    <style>
+        body,html {
+                background-image: url("res/img/rep.jpg");
+                background-repeat: repeat;
+        }
+        .container {
+            padding: 0;
+            height: auto;
+            width: 90%;
+            margin-left: 5%;
+            margin-top: 5%;
+            color: black;
+            font-weight: bolder;
+            font-size: 36px;
+
+        }
+    </style>
+    <script language="javascript">
+        function createNew(){
+            var a = $("#name").val();
+            var b = $("#descr").val();
+            var obj0 = {
+                name:a,
+                descr:b
+            }
+            $.ajax({
+                src: "addNewGroup.php",
+                type:"POST",
+                data:obj0,
+                success:showSuccess,
+                error: notRight
+            });
+            function showSuccess(data) {
+                console.log(data);
+            }
+            function notRight(jqx, textStatus, errStr) {
+    		console.log(errStr);
+		    }
+        }
+    </script>
+</body>
+</html>

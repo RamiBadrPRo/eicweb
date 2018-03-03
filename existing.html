@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Existing</title>
+	<script src="res/js/jquery.min.js"></script>
+    <script src="res/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="res/css/bootstrap.min.css">
+</head>
+<body>
+		<div class="alert alert-success alert-dismissable">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>Success!</strong> Your name has been added.
+		</div>
+		<div class="alert alert-danger alert-dismissable">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong>Warning!</strong> an error occured.
+		</div>
+<h3><u>Cochez Les cases ou vous n'etes pas disponible :</u></h3>
+<table>
+<thead>
+	<th>Dates</th>
+	<th>8:30 - 10:30</th>
+	<th>10:30 - 12:30</th>
+	<th>14:30 - 16:30</th>
+	<th>16:30 - 18:30</th>
+</thead>
+<tbody>
+<tr>
+	<td>Lundi</td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+</tr>
+<tr>
+	<td>Mardi</td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+</tr>
+<tr>
+	<td>Mercredi</td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+</tr>
+<tr>
+	<td>Jeudi</td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+</tr>
+<tr>
+	<td>Vendredi</td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+	<td><input type="hidden" value="_"/></td>
+</tr>
+</tbody>
+</table>
+<div class="input-group">
+    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+    <input id="name" type="text" class="form-control" placeholder="Votre nom complet">
+</div>
+
+<button class="btn btn-success "onclick="send()">Envoyer</button>
+<script language="javascript">
+	$(document).ready(function() {
+		$("td:not(:nth-child(1))").click(function(){
+			var a = $(this).children("input");
+			if(a.val() == "_") {
+				$(this).css("background-color","black").css("border","2px solid white");
+				a.val("*");
+			} 
+			else {
+				$(this).css("background-color","rgba(255,255,255,.3)").css("border","2px solid black");
+				a.val("_");
+			}
+		})
+	});
+	function send() {
+		//create schedule string
+		var str = '';
+		var name = $("#name").val();
+		for(var i=0;i<20;i++) {
+			str+= $("input:nth-child(1)")[i].value;
+		}
+		var data0 = {
+			name: name,
+			entry: str
+		};
+		$.ajax({
+			url: "addNewUserEntry.php",
+			type:"POST",
+			data:data0,
+			success:processData,
+			error:showError
+		});
+		function showError(jqx, textStatus, errStr) {
+    		Alert(errStr);
+		}
+		function processData(data) {
+			if(data=="success"){
+				$(".alert-success").show();
+			}
+			else {
+				$(".alert-danger").show();
+			}
+			$("html, body").animate({ scrollTop: 0 }, "slow");
+		}
+	}
+</script>
+<style>
+	body,html {
+            background-image: url("res/img/rep.jpg");
+            background-repeat: repeat;
+			padding: 10px;
+    }
+	h3 {
+		color: black;
+	}
+	table {
+		width:80%;
+		height:500px;
+		margin-left: 10%;
+		margin-top: 50px;
+		margin-bottom: 20px;
+		color: black;
+		border: 2px double black;
+		border-radius: 5px;
+		
+	}
+	td,th {
+		border: 2px solid black;
+		border-radius: 3px;
+		padding: 5px;
+		background-color: rgba(255,255,255,.3);
+	}
+	.input-group,button,.alert {
+		width: 60%;
+		margin-left: 20%;
+		margin-bottom: 10px;
+	}
+	.alert {
+		display: none;
+	}
+</style>
